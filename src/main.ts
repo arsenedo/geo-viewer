@@ -3,6 +3,24 @@ import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import GUI from 'lil-gui';
 import './style.css'
 
+const debugConsole = document.querySelector('.debug-console');
+debugConsole?.setAttribute("data-state", "close");
+debugConsole?.addEventListener('click', () => {
+    const state = debugConsole.getAttribute("data-state");
+    console.log(state);
+    if (state === "open") {
+        debugConsole.classList.add("closed");
+        debugConsole.classList.remove("open");
+
+        debugConsole.setAttribute("data-state", "close");
+    } else {
+        debugConsole.classList.add("open");
+        debugConsole.classList.remove("closed");
+
+        debugConsole.setAttribute("data-state", "open");
+    }
+});
+
 const scene = new THREE.Scene();
 scene.background = new THREE.Color().setRGB(0.051, 0.051, 0.051);
 
@@ -13,6 +31,12 @@ document.body.appendChild( renderer.domElement );
 const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 )
 const controls = new OrbitControls(camera, renderer.domElement);
 controls.zoomSpeed = 5;
+
+document.addEventListener('touchstart', (e) => {
+    if (e.touches.length > 1) {
+        console.log(e.touches);
+    }
+});
 
 camera.position.set( 0, 1, 0 );
 controls.update();
