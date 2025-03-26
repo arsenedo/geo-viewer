@@ -4,10 +4,12 @@ import GUI from 'lil-gui';
 import './style.css'
 
 const debugConsole = document.querySelector('.debug-console');
+const consoleBody = debugConsole?.querySelector(".console-body");
+
 debugConsole?.setAttribute("data-state", "close");
 debugConsole?.addEventListener('click', () => {
     const state = debugConsole.getAttribute("data-state");
-    console.log(state);
+
     if (state === "open") {
         debugConsole.classList.add("closed");
         debugConsole.classList.remove("open");
@@ -33,8 +35,12 @@ const controls = new OrbitControls(camera, renderer.domElement);
 controls.zoomSpeed = 5;
 
 document.addEventListener('touchstart', (e) => {
+    const log = document.createElement("div");
+    log.innerHTML = e.touches.length.toString();
+
+    consoleBody?.appendChild(log);
     if (e.touches.length > 1) {
-        console.log(e.touches);
+
     }
 });
 
